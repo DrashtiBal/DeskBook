@@ -1,0 +1,16 @@
+package com.onerivet.deskbook.service.impl;
+
+import java.util.List;
+
+import com.onerivet.deskbook.model.entity.Employee;
+import com.onerivet.deskbook.service.EmployeeService;
+
+public class EmployeeServiceImpl implements EmployeeService{
+
+	@Override
+	public List<Employee> getAllEmployee() {
+		
+		return null;
+	}
+
+}

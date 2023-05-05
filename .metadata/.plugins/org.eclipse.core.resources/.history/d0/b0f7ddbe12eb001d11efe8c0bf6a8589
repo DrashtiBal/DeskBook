@@ -1,0 +1,14 @@
+server:
+ port: 8000
+spring:
+ datasource:
+  url: jdbc:sqlserver://localhost:1433;database=DeskBookDev;encrypt=false
+  username: sa
+  password: admin#123
+
+ jpa:
+  hibernate:
+   #ddl-auto=update
+   naming:
+    physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl 
+  show-sql: true

@@ -1,0 +1,6 @@
+package com.onerivet.deskbook.model.payload;
+
+public class ModeOfWorkDto {
+	private int id;
+	private String modeOfWorkName;
+}

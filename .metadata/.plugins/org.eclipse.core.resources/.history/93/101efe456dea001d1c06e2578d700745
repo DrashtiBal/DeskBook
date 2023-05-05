@@ -1,0 +1,20 @@
+package com.onerivet.deskbook.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.onerivet.deskbook.model.entity.Employee;
+import com.onerivet.deskbook.service.EmployeeService;
+
+public class EmployeeServiceImpl implements EmployeeService{
+
+	@Autowired
+	private EmployeeService employeeService; 
+	@Override
+	public List<Employee> getAllEmployee() {
+		
+		return null;
+	}
+
+}

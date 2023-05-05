@@ -1,0 +1,43 @@
+package com.onerivet.deskbook.model.entity;
+
+
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@ToString
+public class SeatConfiguration {
+
+	@Id
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+	@Column(name="SeatConfigurationId")
+	private int id;
+	
+	@Column(name="")
+	private City city;
+	
+	@Column(name="SeatConfigurationId")
+	private Floor floor;
+	
+	@Column(name="SeatConfigurationId")
+	private Column column;
+	
+	@Column(name="SeatConfigurationId")
+	private SeatNumber seatNumber;
+	
+	
+}

@@ -1,0 +1,17 @@
+package com.onerivet.deskbook.model.payload;
+
+import com.onerivet.deskbook.model.entity.City;
+import com.onerivet.deskbook.model.entity.Columns;
+import com.onerivet.deskbook.model.entity.Employee;
+import com.onerivet.deskbook.model.entity.Floor;
+import com.onerivet.deskbook.model.entity.SeatNumber;
+
+public class SeatConfigurationDto {
+
+	private int id;
+	private City city;
+	private Floor floor;
+	private Columns column;
+	private SeatNumber seatNumber;
+	private Employee employee;
+}
