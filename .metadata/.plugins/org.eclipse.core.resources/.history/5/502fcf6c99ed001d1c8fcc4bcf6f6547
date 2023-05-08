@@ -1,0 +1,63 @@
+package com.onerivet.deskbook.model.payload;
+
+//import java.util.Set;
+
+import com.onerivet.deskbook.model.entity.Designation;
+import com.onerivet.deskbook.model.entity.ModeOfWork;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class EmployeeDto {
+	
+	
+	private int id;
+	
+	private String userId;
+	
+	private String emailId;
+	
+	@NotEmpty(message="Please Enter Your First Name")
+	@Size(max=100,message="Your First name cannot exceed 100 characters")
+	@Size(min=2,message="First name must be of 2 characters or more")
+	//@Pattern(regexp = "^([A-Za-z]{2,}+['+a-z]")
+	@Pattern(regexp = "[A-Za-z]+(['+a-z])+?$")
+	private String fname;
+	
+	//@Pattern(regexp = "^([A-Za-z]{2,}\'?")
+	@NotEmpty(message="Please Enter Your Last Name")
+	@Size(max=100,message="Your Last name cannot exceed 100 characters")
+	@Size(min=2,message="Last name must be of 2 characters or more")
+	private String lname;
+	
+	
+	@NotEmpty(message="Please enter phone no ")
+	@Pattern(regexp="^\\d{10}$",message="Please enter a numeric value only")
+	@Size(min=10,max=10,message="10-digit number is required")
+	private String phoneNumber;
+	
+	@Size(max=200,message="Project can not be excced 200 characters")
+	private String project;
+	
+	private ModeOfWorkDto modeOfWorkId;
+	
+	private String profilePictureFileName;
+	
+	private String profilePictureFilePath;
+	
+	private DesignationDto designationId;
+	//private Set<Role> role;
+	//private Set<WorkingDay> workingDay;
+	//private SeatConfiguration configurationId;
+}

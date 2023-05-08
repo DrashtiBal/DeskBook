@@ -1,0 +1,28 @@
+package com.onerivet.deskbook.model.payload;
+
+import com.onerivet.deskbook.model.entity.Employee;
+
+//import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+//@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateUserDto {
+
+	private String emailId;
+	private String phoneNumber;
+	private String designation;
+	private String project;
+	
+	public UpdateUserDto(Employee employee) {
+		super();
+		this.emailId = employee.getEmailId();
+		this.phoneNumber = employee.getPhoneNumber();
+		this.designation = employee.getDesignation();
+		this.project = employee.getProject();
+	}
+}

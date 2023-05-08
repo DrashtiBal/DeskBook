@@ -1,0 +1,42 @@
+package com.onerivet.deskbook.model.payload;
+
+//import java.util.Set;
+
+import com.onerivet.deskbook.model.entity.Designation;
+import com.onerivet.deskbook.model.entity.ModeOfWork;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class EmployeeDto {
+	
+	
+	private int id;
+	private String userId;
+	
+	private String emailId;
+	@NotEmpty(message="Please Enter Your First Name")
+	private String fname;
+	private String lname;
+	@NotEmpty(message="Phone Number Must Not be Empty")
+	@Pattern(regexp="^\\d{10}$",message="Invalid Phone No")
+	private String phoneNumber;
+	private String project;
+	private ModeOfWorkDto modeOfWorkId;
+	private String profilePictureFileName;
+	private String profilePictureFilePath;
+	private DesignationDto designationId;
+	//private Set<Role> role;
+	//private Set<WorkingDay> workingDay;
+	//private SeatConfiguration configurationId;
+}
