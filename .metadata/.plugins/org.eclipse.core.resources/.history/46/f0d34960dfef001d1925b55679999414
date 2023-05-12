@@ -1,0 +1,148 @@
+package com.onerivet.deskbook.services.impl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+//import com.onerivet.deskbook.exception.DataNotFoundException;
+import com.onerivet.deskbook.exception.ResorceNotFoundException;
+import com.onerivet.deskbook.models.entity.City;
+import com.onerivet.deskbook.models.entity.ColumnDetails;
+import com.onerivet.deskbook.models.entity.Employee;
+import com.onerivet.deskbook.models.entity.Floor;
+import com.onerivet.deskbook.models.entity.Seat;
+import com.onerivet.deskbook.models.entity.SeatConfiguration;
+import com.onerivet.deskbook.models.payload.EmployeeDto;
+import com.onerivet.deskbook.models.payload.SeatConfigurationDto;
+import com.onerivet.deskbook.models.payload.UpdateEmployeeDto;
+import com.onerivet.deskbook.repository.CityRepo;
+import com.onerivet.deskbook.repository.ColumnDetailsRepo;
+import com.onerivet.deskbook.repository.DesignationRepo;
+import com.onerivet.deskbook.repository.EmployeeRepo;
+import com.onerivet.deskbook.repository.FloorRepo;
+import com.onerivet.deskbook.repository.ModeOfWorkRepo;
+import com.onerivet.deskbook.repository.SeatConfigurationRepo;
+import com.onerivet.deskbook.repository.SeatRepo;
+import com.onerivet.deskbook.services.EmployeeService;
+
+import jakarta.transaction.Transactional;
+
+@Transactional
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
+
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired 
+	private SeatConfigurationRepo seatConfigurationRepo;
+	
+	@Autowired
+	private Seat seat;
+	
+	@Autowired
+	private ColumnDetailsRepo columnDetailsRepo;
+	
+	@Autowired
+	private FloorRepo floorRepo;
+	
+	@Autowired
+	private CityRepo cityRepo;
+	
+	@Autowired
+	private SeatRepo seatRepo;
+	
+	@Autowired
+	private ModeOfWorkRepo modeOfWorkRepo;
+	
+	@Autowired
+	private DesignationRepo designationRepo; 
+
+	@Override
+	public List<EmployeeDto> getAllEmployees() {
+		return this.employeeRepo.findAll().stream().map((employee) -> this.modelMapper.map(employee, EmployeeDto.class))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public EmployeeDto getEmployeeById(int id) {
+		Employee employee = this.employeeRepo.findById(id)
+				.orElseThrow(() -> new ResorceNotFoundException("Employee with id " + id + " not found."));
+		return this.modelMapper.map(employee, EmployeeDto.class);
+	}
+
+//	@Override
+//	public EmployeeDto updateEmployeebyId(EmployeeDto employeeDto, int id) {
+//		
+//			
+//		Employee employee = employeeRepository.findById(id).orElseThrow(()-> new DataNotFoundException("User Not Found") );
+//		Employee employee1 = this.modelMapper.map(employeeDto, Employee.class);
+//		employee.setFname(employee1.getFname());
+//		employee.setLname(employee1.getLname());
+//		employee.setPhoneNumber(employee1.getPhoneNumber());
+//		employee.setProfilePictureFileName(employee1.getProfilePictureFileName());
+//		employee.setProfilePictureFilePath(employee1.getProfilePictureFilePath());
+//		employee.setProject(employee1.getProject());
+//		employee.setDesignationId(employee1.getDesignationId());
+//		employee.setModeOfWorkId(employee1.getModeOfWorkId());
+//		Employee saveEmployee = employeeRepository.save(employee);
+//		//return this.employeeToEmployeeDto(saveEmployee);
+//		return this.modelMapper.map(saveEmployee, EmployeeDto.class);
+//							
+			//EmployeeDto employeeById = getEmployeeById(id);
+			//employeeToEmployeeDto(employeeById);
+			
+//			if(employeeById!=null) {
+//				Employee employee = employeeRepository.save(employeeDtoToEmployee(employeeDto));
+//				System.out.println(employee);
+//				return  new ResponseEntity<EmployeeDto>(this.modelMapper.map(employee, EmployeeDto.class),HttpStatus.OK);
+//			}else{
+//				throw new DataNotFoundException("Data Not Found");
+//			}
+	//}
+	@Override
+	public UpdateEmployeeDto updateEmployeeById(UpdateEmployeeDto updateEmployeeDto, int id) {
+		
+		Employee employee = employeeRepo.findById(id).orElseThrow(()-> new ResorceNotFoundException("User Not Found") );
+		
+			designationRepo.findById(updateEmployeeDto.getDesignation());
+			modeOfWorkRepo.findById(updateEmployeeDto.getModeOfWork());
+			
+		Employee employee1 = this.modelMapper.map(updateEmployeeDto, Employee.class);
+		employee.setFirstName(updateEmployeeDto.getFirstName());
+		employee.setLastName(updateEmployeeDto.getLastName());
+		employee.setPhoneNumber(updateEmployeeDto.getPhoneNumber());
+		employee.setProfilePictureFileName(updateEmployeeDto.getProfilePictureFileName());
+		employee.setProfilePictureFilePath(updateEmployeeDto.getProfilePictureFilePath());
+		employee.setProject(updateEmployeeDto.getProject());
+		employee.setDesignation(employee1.getDesignation());
+		employee.setModeOfWork(employee1.getModeOfWork());
+		SeatConfiguration seatConfiguration=null;/*=new SeatConfiguration();*/
+		SeatConfiguration findEmployee = seatConfigurationRepo.findEmployee(employee);
+		
+		if(seatConfiguration==null)
+		{
+			City city = cityRepo.findById(updateEmployeeDto.getCity()).get();
+			Floor floor = floorRepo.findById(updateEmployeeDto.getFloor()).get();
+			ColumnDetails columnDetails = columnDetailsRepo.findById(updateEmployeeDto.getCloumn()).get();
+			Seat seat2 = seatRepo.findById(updateEmployeeDto.getSeatNo()).get();
+			
+			seatConfiguration.setCity(city);
+			seatConfiguration.setFloor(floor);
+			seatConfiguration.setColumn(columnDetails);
+			seatConfiguration.setSeatNumber(seat2);
+		}
+		//if()
+		Employee saveEmployee = employeeRepo.save(employee);
+		this.modelMapper.map(saveEmployee, UpdateEmployeeDto.class);
+		SeatConfiguration saveSeatConfiguration = seatConfigurationRepo.save(seatConfiguration);
+		this.modelMapper.map(saveSeatConfiguration, SeatConfigurationDto.class);
+		employee.setSeatConfiguration(saveSeatConfiguration);
+		return this.modelMapper.map(saveEmployee, UpdateEmployeeDto.class);
+	}
+}

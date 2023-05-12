@@ -1,8 +1,0 @@
-package com.onerivet.deskbook.model.entity;
-
-public class SeatConfiguration {
-
-	private int id;
-	private City city;
-	private Floor 
-}

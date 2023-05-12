@@ -1,0 +1,13 @@
+package com.onerivet.deskbook.models.entity;
+
+import java.sql.Date;
+
+
+public class DateClass {
+	
+	private Date CreatedDate;
+	private String CreatedBy;
+	private Date ModifiedDate;
+	private String ModifiedBy;
+
+}

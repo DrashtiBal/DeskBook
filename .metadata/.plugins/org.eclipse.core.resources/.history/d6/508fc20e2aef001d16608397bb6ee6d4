@@ -1,0 +1,109 @@
+package com.onerivet.deskbook.services.impl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+//import com.onerivet.deskbook.exception.DataNotFoundException;
+import com.onerivet.deskbook.exception.ResorceNotFoundException;
+import com.onerivet.deskbook.models.entity.Employee;
+import com.onerivet.deskbook.models.entity.Seat;
+import com.onerivet.deskbook.models.payload.EmployeeDto;
+import com.onerivet.deskbook.repository.CityRepo;
+import com.onerivet.deskbook.repository.ColumnDetailsRepo;
+import com.onerivet.deskbook.repository.EmployeeRepo;
+import com.onerivet.deskbook.repository.FloorRepo;
+import com.onerivet.deskbook.repository.SeatConfigurationRepo;
+import com.onerivet.deskbook.services.EmployeeService;
+
+import jakarta.transaction.Transactional;
+
+@Transactional
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	@Autowired
+	private EmployeeRepo employeeRepo;
+
+
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Autowired 
+	private SeatConfigurationRepo seatConfigurationRepo;
+	
+	@Autowired
+	private Seat seat;
+	
+	@Autowired
+	private ColumnDetailsRepo columnDetailsRepo;
+	
+	@Autowired
+	private FloorRepo floorRepo;
+	
+	@Autowired
+	private CityRepo cityRepo;
+
+	@Override
+	public List<EmployeeDto> getAllEmployees() {
+		return this.employeeRepo.findAll().stream().map((employee) -> this.modelMapper.map(employee, EmployeeDto.class))
+				.collect(Collectors.toList());
+	}
+	@Override
+	public EmployeeDto getEmployeeById(int id) {
+		Employee employee = this.employeeRepo.findById(id)
+				.orElseThrow(() -> new ResorceNotFoundException("Employee with id " + id + " not found."));
+		return this.modelMapper.map(employee, EmployeeDto.class);
+	}
+
+//	@Override
+//	public EmployeeDto updateEmployeebyId(EmployeeDto employeeDto, int id) {
+//		
+//			
+//		Employee employee = employeeRepository.findById(id).orElseThrow(()-> new DataNotFoundException("User Not Found") );
+//		Employee employee1 = this.modelMapper.map(employeeDto, Employee.class);
+//		employee.setFname(employee1.getFname());
+//		employee.setLname(employee1.getLname());
+//		employee.setPhoneNumber(employee1.getPhoneNumber());
+//		employee.setProfilePictureFileName(employee1.getProfilePictureFileName());
+//		employee.setProfilePictureFilePath(employee1.getProfilePictureFilePath());
+//		employee.setProject(employee1.getProject());
+//		employee.setDesignationId(employee1.getDesignationId());
+//		employee.setModeOfWorkId(employee1.getModeOfWorkId());
+//		Employee saveEmployee = employeeRepository.save(employee);
+//		//return this.employeeToEmployeeDto(saveEmployee);
+//		return this.modelMapper.map(saveEmployee, EmployeeDto.class);
+//							
+			//EmployeeDto employeeById = getEmployeeById(id);
+			//employeeToEmployeeDto(employeeById);
+			
+//			if(employeeById!=null) {
+//				Employee employee = employeeRepository.save(employeeDtoToEmployee(employeeDto));
+//				System.out.println(employee);
+//				return  new ResponseEntity<EmployeeDto>(this.modelMapper.map(employee, EmployeeDto.class),HttpStatus.OK);
+//			}else{
+//				throw new DataNotFoundException("Data Not Found");
+//			}
+	//}
+	@Override
+	public EmployeeDto updateEmployeeById(EmployeeDto employeeDto, int id) {
+		
+		Employee employee = employeeRepo.findById(id).orElseThrow(()-> new ResorceNotFoundException("User Not Found") );
+		
+		Employee employee1 = this.modelMapper.map(employeeDto, Employee.class);
+		employee.setFirstName(employee1.getFirstName());
+		employee.setLastName(employee1.getLastName());
+		employee.setPhoneNumber(employee1.getPhoneNumber());
+		employee.setProfilePictureFileName(employee1.getProfilePictureFileName());
+		employee.setProfilePictureFilePath(employee1.getProfilePictureFilePath());
+		employee.setProject(employee1.getProject());
+		employee.setDesignation(employee1.getDesignation());
+		employee.setModeOfWork(employee1.getModeOfWork());
+		employee.setSeatConfiguration(employee1.getSeatConfiguration());
+		Employee saveEmployee = employeeRepo.save(employee);
+		return this.modelMapper.map(saveEmployee, EmployeeDto.class);
+	}
+}

@@ -1,6 +1,0 @@
-package com.onerivet.deskbook.model.payload;
-
-public class SeatNumberDto {
-	private int id;
-	private String seatNumber;
-}

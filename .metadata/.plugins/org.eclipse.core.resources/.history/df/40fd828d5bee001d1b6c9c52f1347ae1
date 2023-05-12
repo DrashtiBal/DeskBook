@@ -1,0 +1,19 @@
+package com.onerivet.deskbook.services.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.onerivet.deskbook.models.payload.ModeOfWorkDto;
+import com.onerivet.deskbook.services.ModeOfWorkService;
+
+@Service
+public class ModeOfWorkServiceImpl implements ModeOfWorkService {
+
+	private ModeOfWorkService modeOfWorkService;
+	@Override
+	public List<ModeOfWorkDto> getAllModeOfWork() {
+		
+		return null;
+	}
+}

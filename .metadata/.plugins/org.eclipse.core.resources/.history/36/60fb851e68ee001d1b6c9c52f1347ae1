@@ -1,0 +1,16 @@
+package com.onerivet.deskbook.service;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.onerivet.deskbook.model.entity.Employee;
+import com.onerivet.deskbook.model.payload.EmployeeDto;
+//import com.onerivet.deskbook.model.payload.UpdateUserDto;
+
+public interface EmployeeService {
+
+	public List<EmployeeDto> getAllEmployee();
+	public EmployeeDto getEmployeeById(int id);
+	public ResponseEntity<EmployeeDto>  updateEmployeebyId(EmployeeDto employeeDto,int id);
+}
