@@ -3,6 +3,8 @@ package com.onerivet.deskbook.models.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +24,9 @@ public class ColumnDetails {
 	
 	@Column(name = "ColumnName")
 	private char columnName;
+	
+	@OneToOne
+	@JoinColumn(name="FloorId")
+	//@Column(name="FloorId")
+	private Floor floor;
 }

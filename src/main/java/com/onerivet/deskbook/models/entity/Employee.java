@@ -22,13 +22,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "[Employee]", schema = "[dbo]")
-public class Employee {
+public class Employee extends DateClass{
 	@Id
 	@Column(name = "EmployeeId")
-	private int id;
+	private String id;
 
-	@Column(name = "UserId")
-	private String userId;
+	//@Column(name = "UserId")
+	//private String userId;
 
 	@Column(name = "EmailId")
 	private String emailId;
@@ -59,8 +59,8 @@ public class Employee {
 	@JoinColumn(name = "DesignationId")
 	private Designation designation;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
-	private SeatConfiguration seatConfiguration;
+//	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
+//	private SeatConfiguration seatConfiguration;
 	
 
 	@ManyToMany
@@ -72,12 +72,11 @@ public class Employee {
 	private Set<WorkingDay> workingDays;
 	
 	@Column(name = "isActive")
-	private boolean active;
+	private boolean isActive;
 	
-	public Employee(int id, String userId, String emailId, String firstName, String lastName) {
+	public Employee(String id, String emailId, String firstName, String lastName) {
 		super();
 		this.id = id;
-		this.userId = userId;
 		this.emailId = emailId;
 		this.firstName = firstName;
 		this.lastName = lastName;

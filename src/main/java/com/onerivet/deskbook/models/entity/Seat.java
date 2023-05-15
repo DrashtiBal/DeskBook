@@ -3,6 +3,8 @@ package com.onerivet.deskbook.models.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -16,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "[Seat]", schema = "[Ref]")
-public class SeatNumber {
+public class Seat {
 	@Id
 	@Column(name = "SeatId")
 	private int id;
@@ -24,6 +26,12 @@ public class SeatNumber {
 	@Column(name = "SeatNumber")
 	private String seatNumber;
 
-	@Transient
-	private boolean booked;
+//	@Transient
+//	private boolean booked;
+	@OneToOne
+	@JoinColumn(name="ColumnId")
+	private ColumnDetails column;
+	
+	@Column(name="IsAvailable")
+	private boolean isAvailable;
 }

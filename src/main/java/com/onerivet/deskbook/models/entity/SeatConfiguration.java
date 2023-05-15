@@ -1,6 +1,8 @@
 package com.onerivet.deskbook.models.entity;
 
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,21 +26,25 @@ public class SeatConfiguration {
 	@Column(name = "SeatConfigurationId")
 	private int id;
 	
-	@ManyToOne
-	@JoinColumn(name = "CityId")
-	private City city;
-	
-	@ManyToOne
-	@JoinColumn(name = "FloorId")
-	private Floor floor;
-	
-	@ManyToOne
-	@JoinColumn(name = "ColumnId")
-	private ColumnDetails column;
-	
+//	@ManyToOne
+//	@JoinColumn(name = "CityId")
+//	private City city;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "FloorId")
+//	private Floor floor;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "ColumnId")
+//	private ColumnDetails column;
+//	
+//	@OneToOne
+//	@JoinColumn(name = "SeatId")
+//	private Seat seatNumber;
+//	
 	@OneToOne
-	@JoinColumn(name = "SeatId")
-	private SeatNumber seatNumber;
+	@JoinColumn(name="SeatId")
+	private Seat seat;
 	
 	@OneToOne
 	@JoinColumn(name = "EmployeeId")
@@ -48,7 +54,12 @@ public class SeatConfiguration {
 	@JoinColumn(name = "CreatedBy")
 	private Employee createdBy;
 	
-	@Column(name = "IsAvailable")
-	private boolean available;
+	@OneToOne
+	@JoinColumn(name= "ModifiedBy")
+	private Employee modifiedBy;
+	
+	@JoinColumn(name="ModifiedDate")
+	private LocalDateTime modifiedDate;
+	
 	
 }

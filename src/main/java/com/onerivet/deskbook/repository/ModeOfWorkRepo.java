@@ -7,5 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.onerivet.deskbook.models.entity.ModeOfWork;
 
 public interface ModeOfWorkRepo extends JpaRepository<ModeOfWork, Integer> {
-	public Optional<ModeOfWork> findByModeOfWorkName(String modeOfWorkName);
+	
+	//Query(value="select ")
+	//public Optional<ModeOfWork> findByModeOfWorkName(String modeOfWorkName);
+
 }

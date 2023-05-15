@@ -19,11 +19,11 @@ public class SecurityConfig {
 		
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
+		http.csrf().disable()
 		  .cors()
 		.and()
 		  .authorizeHttpRequests( 
-				  (authorize) -> authorize.requestMatchers("/api/deskbook/**").permitAll()
+				  (authorize) -> authorize.requestMatchers("/api/deskbook/**","/swagger-ui/**","/v3/api-docs/**").permitAll()
 				  .anyRequest().authenticated()
 				  )
 		  .oauth2ResourceServer().jwt();

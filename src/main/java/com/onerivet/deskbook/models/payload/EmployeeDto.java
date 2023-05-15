@@ -17,9 +17,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDto {
-	private int id;
+	private String id;
 
-	private String userId;
+	//private String userId;
 
 	private String emailId;
 
@@ -46,22 +46,19 @@ public class EmployeeDto {
 	@Size(max = 200, message = "Project names cannot exceed 200 character")
 	private String project;
 	
+	@NotNull(message = "Please select designation")
+	private DesignationDto designation;
 	
 	@NotNull(message = "Please select Mode of work")
 	private ModeOfWorkDto modeOfWork;
 
+	//@NotNull(message = "Please select seatConfiguration")
+	//private SeatConfigurationDto seatConfiguration;
 
-	@NotNull(message = "Please select designation")
-	private DesignationDto designation;
+	//@NotEmpty(message = "Please select role")
+	//private Set<@Valid RoleDto> roles;
 
+	//private Set<@Valid WorkingDayDto> workingDays;
 
-	@NotNull(message = "Please select seatConfiguration")
-	private SeatConfigurationDto seatConfiguration;
-
-	@NotEmpty(message = "Please select role")
-	private Set<@Valid RoleDto> roles;
-
-	private Set<@Valid WorkingDayDto> workingDays;
-
-	private boolean active;
+	private boolean isActive;
 }
