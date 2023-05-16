@@ -12,5 +12,5 @@ public interface ColumnDetailsRepo extends JpaRepository<ColumnDetails, Integer>
 
 	//public Optional<ColumnDetails> findByColumnName(String columnName); 
 	
-	public List<ColumnDetails>
+	public List<ColumnDetails> 
 }
